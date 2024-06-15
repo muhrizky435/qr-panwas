@@ -11,24 +11,32 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-  <title>ABSENSI PANWAS JAMBLANG</title>
+  <!-- Favicon -->
+  <link rel="icon" href="{{ asset('image/logo1.png') }}" type="image/x-icon">
+
+  <title>Absensi Panwas Jamblang</title>
 
   <!-- Custom CSS -->
   <style>
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: fantasy;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      margin-top: 50px;
     }
 
     #qr-reader {
-      height: 400px;
+      height: 250px;
     }
 
     #qr-reader-results {
       margin-top: 20px;
       font-size: 20px;
       font-weight: bold;
-      color: #ffffff; /* Changed for better visibility */
-      background-color: #0D6EFD; /* Bootstrap primary color */
+      color: #ffffff;
+      background-color: #fdb10d;
       padding: 10px;
       border-radius: 5px;
     }
@@ -41,7 +49,7 @@
     .card-body {
       position: relative;
       padding: 1rem;
-      background-color: #f8f9fa; /* Light background for the card */
+      background-color: #ffffff;
     }
 
     .center-flex {
@@ -52,13 +60,28 @@
     }
 
     h1 {
-      color: #343a40; /* Darker shade for text */
+      color: #343a40;
+    }
+
+    .table-responsive {
+      margin-top: 30px;
+    }
+
+    table th, table td {
+      text-align: center;
+    }
+
+    .alert-success {
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1 class="mt-5 mb-4 text-center">SCAN QR-CODE UNTUK ABSENSI</h1>
+    <div class="text-center mb-2">
+      <img src="{{ asset('image/logo2.png') }}" alt="Logo" width="250">
+    </div>
+    <h1 class="mb-4 text-center">UPLOAD/SCAN QRCODE IMAGE UNTUK ABSENSI</h1>
     <div class="card">
       <div class="card-body center-flex">
         <div id="qr-reader"></div>
@@ -66,7 +89,9 @@
     </div>
 
     @if (session()->has('sukses'))
-      <p>Sukses: {{ session('sukses') }}</p>
+      <div class="alert alert-success text-center">
+        {{ session('sukses') }}
+      </div>
     @endif
 
     <div id="qr-reader-results" class="text-center"></div>
@@ -76,26 +101,25 @@
       <input type="hidden" name="nama_panwas" id="nama_panwas">
     </form>
 
-    <div class="table-responsive mt-5">
+    <div class="table-responsive">
+      <h4 class="text-center mb-4">LIST ABSENSI</h4>
       <table class="table table-bordered table-hover">
-        <h4 class="text-center">ABSEN JUNI</h4>
-        <thead>
+        <thead class="table-warning">
           <tr>
-            <th>Nama</th>
-            <th>Tanggal</th>
+            <th>NAMA</th>
+            <th>HARI, TANGGAL</th>
           </tr>
         </thead>
         <tbody>
           @foreach ($absensi as $absen)
             <tr>
               <td>{{ $absen->nama_panwas }}</td>
-              <td>{{ $absen->tanggal }}</td>
+              <td>{{ \Carbon\Carbon::parse($absen->tanggal)->locale('id')->timezone('Asia/Jakarta')->isoFormat('dddd, D MMMM YYYY') }}</td>
             </tr>
           @endforeach
         </tbody>
       </table>
     </div>
-
   </div>
 
   <!-- Html5Qrcode Script -->
