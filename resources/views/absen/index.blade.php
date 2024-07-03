@@ -102,7 +102,7 @@
     </form>
 
     <div class="table-responsive">
-      <h4 class="text-center mb-4">LIST ABSENSI</h4>
+      <h4 class="text-center mb-4">LIST ABSENSI BULAN JUNI</h4>
       <table class="table table-bordered table-hover">
         <thead class="table-warning">
           <tr>

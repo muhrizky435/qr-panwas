@@ -29,4 +29,13 @@ class absenController extends Controller
 
         return redirect('/')->with('sukses', 'Anda berhasil absen');
     }
+
+    public function rekap(){
+        $rekapAbsensi = DB::table('absensis')
+            ->select(DB::raw('nama_panwas ,MONTH(tanggal) as bulan, COUNT(*) as jumlah_absen'))
+            ->groupBy('nama_panwas', 'bulan')
+            ->get();
+
+        return view('absen.rekap', compact('rekapAbsensi'));
+    }
 }

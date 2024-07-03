@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 Route::get('/', [absenController::class, 'index'])->name('home');
 Route::post('/store', [absenController::class, 'store'])->name('store');
+Route::get('/rekap', [absenController::class, 'rekap'])->name('rekap.index');
 
 // Route::get('/show-qr/{id}', function ($id) {
 //     return view('show-qr', ['id' => $id]);
